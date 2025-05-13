@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Hero } from '@/components/Hero';
 import { ExperienceSection } from '@/components/ExperienceSection';
 import { SkillsSection } from '@/components/SkillsSection';
-import { BlogSection } from '@/components/BlogSection';
+// import { BlogSection } from '@/components/BlogSection';
 import { ContactSection } from '@/components/ContactSection';
 import { Footer } from '@/components/Footer';
 
@@ -17,9 +17,14 @@ export default function Home() {
     <main className="min-h-screen">
       <Hero />
       <ExperienceSection />
-      <SkillsSection />
-      <BlogSection />
-      <ContactSection />
+      <div>
+        <div className="-mt-32">
+          <SkillsSection />
+        </div>
+        <div className="-mt-32">
+          <ContactSection />
+        </div>
+      </div>
       <Footer />
     </main>
   );

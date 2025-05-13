@@ -1,13 +1,38 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { smoothScrollTo } from '../utils/smoothScroll';
 
 // Client-side Hero component
 export const ClientHero = ({ children }: { children: React.ReactNode }) => {
+  // Create motion values for mouse position
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  
+  // Transform mouse position into rotation values
+  const rotateX = useTransform(y, [-300, 300], [5, -5]);
+  const rotateY = useTransform(x, [-300, 300], [-5, 5]);
+
+  // Handle mouse move on the container
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    x.set(e.clientX - centerX);
+    y.set(e.clientY - centerY);
+  };
+
+  // Reset rotation when mouse leaves
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   return (
-    <section className="relative bg-gradient-to-b from-primary/10 to-transparent pt-20 pb-32">
+    <section className="relative bg-gradient-to-b from-primary/10 to-transparent pt-12 pb-16">
       <div className="section-container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -23,54 +48,23 @@ export const ClientHero = ({ children }: { children: React.ReactNode }) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="relative hidden lg:block"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
           >
-            <div className="relative w-full h-[500px] rounded-lg overflow-hidden shadow-xl">
-              {/* Placeholder for profile image - replace with actual image */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary opacity-20"></div>
-              <div className="absolute inset-0 flex items-center justify-center text-white">
-                <span className="text-lg">Profile Image Placeholder</span>
-              </div>
-            </div>
-            
-            {/* Tech icons floating around */}
             <motion.div 
-              className="absolute -top-10 -left-10 p-4 bg-white dark:bg-dark rounded-full shadow-lg"
-              animate={{ y: [0, -10, 0], x: [0, 5, 0] }}
-              transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+              className="relative w-full h-[500px] rounded-lg overflow-hidden shadow-xl"
+              style={{
+                rotateX,
+                rotateY,
+                transformPerspective: 1000,
+                boxShadow: "0 10px 25px rgba(0, 0, 0, 0.2)",
+              }}
             >
-              <div className="w-12 h-12 flex items-center justify-center">
-                <span className="text-2xl">🐍</span> {/* Python */}
-              </div>
-            </motion.div>
-            
-            <motion.div 
-              className="absolute top-1/4 -right-8 p-4 bg-white dark:bg-dark rounded-full shadow-lg"
-              animate={{ y: [0, 10, 0], x: [0, -5, 0] }}
-              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-            >
-              <div className="w-12 h-12 flex items-center justify-center">
-                <span className="text-2xl">☁️</span> {/* AWS */}
-              </div>
-            </motion.div>
-            
-            <motion.div 
-              className="absolute bottom-1/4 -left-8 p-4 bg-white dark:bg-dark rounded-full shadow-lg"
-              animate={{ y: [0, -8, 0], x: [0, 8, 0] }}
-              transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-            >
-              <div className="w-12 h-12 flex items-center justify-center">
-                <span className="text-2xl">🤖</span> {/* AI */}
-              </div>
-            </motion.div>
-            
-            <motion.div 
-              className="absolute -bottom-10 right-1/4 p-4 bg-white dark:bg-dark rounded-full shadow-lg"
-              animate={{ y: [0, 12, 0], x: [0, -7, 0] }}
-              transition={{ repeat: Infinity, duration: 5.5, ease: "easeInOut" }}
-            >
-              <div className="w-12 h-12 flex items-center justify-center">
-                <span className="text-2xl">⚛️</span> {/* React */}
-              </div>
+              <img 
+                src="/images/chillprofile.png" 
+                alt="Stephen Mistele" 
+                className="w-full h-full object-cover"
+              />
             </motion.div>
           </motion.div>
         </div>
@@ -78,9 +72,10 @@ export const ClientHero = ({ children }: { children: React.ReactNode }) => {
       
       {/* Scroll indicator */}
       <motion.div 
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-16 left-1/2 transform -translate-x-1/2 cursor-pointer"
         animate={{ y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+        onClick={() => smoothScrollTo('experience')}
       >
         <div className="flex flex-col items-center">
           <span className="text-sm text-gray-500 dark:text-gray-400 mb-2">Scroll Down</span>
@@ -101,7 +96,7 @@ export const ClientExperienceSection = ({ children }: { children: React.ReactNod
   });
 
   return (
-    <section id="experience" className="py-20 bg-light dark:bg-dark" ref={ref}>
+    <section id="experience" className="pt-12 pb-20 bg-gray-50 dark:bg-gray-900" ref={ref}>
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -109,10 +104,9 @@ export const ClientExperienceSection = ({ children }: { children: React.ReactNod
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="heading-lg mb-4 text-primary">Experience & Projects</h2>
+          <h2 className="heading-lg mb-4 text-primary">Professional Experience</h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            My professional journey building large-scale ML infrastructure, GenAI platforms, and distributed systems.
-          </p>
+          Building what powers AI at scale: My journey engineering scalable AI, building automation, and becoming an Amazon Senior Speaker!          </p>
         </motion.div>
 
         {children}
@@ -157,7 +151,7 @@ export const ClientBlogSection = ({ children }: { children: React.ReactNode }) =
   });
 
   return (
-    <section id="blog" className="py-20 bg-white dark:bg-gray-800" ref={ref}>
+    <section id="blog" className="py-20 bg-gray-50 dark:bg-gray-900" ref={ref}>
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

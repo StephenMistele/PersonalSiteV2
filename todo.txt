@@ -1,0 +1,5 @@
+todo (personal site)
+1. figure out what to do with top line experience bits. In horizontal box of their own?
+2. Figure out how to differentiate sagemaker context boxes with project boxes
+3. make the dark background color slightly less dark (use the existing gray-860)
+4. add links for sagemaker sections

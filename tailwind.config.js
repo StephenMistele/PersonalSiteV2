@@ -21,6 +21,9 @@ module.exports = {
         dark: '#1F2937',
         light: '#F9FAFB',
       },
+      gray: {
+        860: '#434147', // Replace with the correct gray-860 value
+      },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
         mono: ['Roboto Mono', 'monospace'],

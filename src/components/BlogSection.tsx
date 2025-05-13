@@ -46,7 +46,7 @@ export const BlogSection = () => {
         {blogPosts.map((post, index) => (
           <div
             key={index}
-            className="bg-gray-50 dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden"
+            className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden"
           >
             <div className="h-48 bg-gray-200 dark:bg-gray-600 relative">
               {post.imageUrl ? (
@@ -61,11 +61,11 @@ export const BlogSection = () => {
               <div className="flex justify-between items-center mb-3">
                 <span className="text-sm text-gray-500 dark:text-gray-400">{post.date}</span>
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">{post.title}</h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">{post.description}</p>
+              <h3 className="heading-sm mb-6 text-primary">{post.title}</h3>
+              <p className="text-gray-700 dark:text-gray-300 font-medium mb-4 line-clamp-3">{post.description}</p>
               <div className="flex flex-wrap gap-2 mb-4">
                 {post.tags.map((tag, idx) => (
-                  <span key={idx} className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">
+                  <span key={idx} className="px-2 py-1 bg-primary/20 text-primary font-medium text-xs rounded-full">
                     {tag}
                   </span>
                 ))}

@@ -110,33 +110,6 @@ export const SkillsSection = () => {
         ))}
       </div>
 
-      {/* Additional section for tools and methodologies */}
-      <div className="mt-16 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
-        <h3 className="heading-md mb-6 text-center text-primary">Areas of Expertise</h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {[
-            "Large-scale ML Infrastructure",
-            "Distributed Training Systems",
-            "GPU Optimization",
-            "Cost Optimization",
-            "Cloud Architecture",
-            "GenAI Platforms",
-            "ML Pipelines",
-            "Scalable Compute Solutions",
-            "Technical Leadership",
-            "Full-Stack Development",
-            "Infrastructure Automation",
-            "Performance Optimization"
-          ].map((expertise, idx) => (
-            <div 
-              key={idx} 
-              className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg text-center text-gray-700 dark:text-gray-300 text-sm font-medium"
-            >
-              {expertise}
-            </div>
-          ))}
-        </div>
-      </div>
     </ClientSkillsSection>
   );
 };
